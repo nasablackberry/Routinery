@@ -40,5 +40,11 @@ def remove_task(routine, task_index):
         routines[routine].pop(task_index)
     return jsonify(routines)
 
+@app.route('/remove_routine/<routine>', methods=['POST'])
+def remove_routine(routine):
+    if routine in routines:
+        del routines[routine]
+    return jsonify(routines)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)

@@ -33,6 +33,12 @@
                 routineTitle.textContent = routine;
                 routineDiv.appendChild(routineTitle);
 
+                const removeRoutineBtn = document.createElement('button');
+                removeRoutineBtn.textContent = 'Remove Routine';
+                removeRoutineBtn.className = 'remove-routine-btn';
+                removeRoutineBtn.setAttribute('data-routine', routine);
+                routineDiv.appendChild(removeRoutineBtn);
+
                 const ul = document.createElement('ul');
                 routines[routine].forEach((task, taskIndex) => {
                     const li = document.createElement('li');
@@ -68,6 +74,7 @@
 
             initializeTimers();
             initializeRemoveTaskButtons();
+            initializeRemoveRoutineButtons();
         }
 
         function initializeTimers() {
@@ -161,6 +168,26 @@
                     const taskIndex = this.getAttribute('data-task-index');
 
                     fetch(`/remove_task/${routine}/${taskIndex}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        routines = data;
+                        renderRoutines();
+                    });
+                });
+            });
+        }
+
+        function initializeRemoveRoutineButtons() {
+            document.querySelectorAll('.remove-routine-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const routine = this.getAttribute('data-routine');
+
+                    fetch(`/remove_routine/${routine}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
