@@ -44,6 +44,7 @@
                             <button class="start-btn" data-timer="timer-${taskIndex}-${routineIndex}">Start</button>
                             <button class="stop-btn" data-timer="timer-${taskIndex}-${routineIndex}" disabled>Stop</button>
                             <button class="pause-btn" data-timer="timer-${taskIndex}-${routineIndex}" disabled>Pause</button>
+                            <button class="remove-btn" data-routine="${routine}" data-task-index="${taskIndex}">Remove Task</button>
                         </div>
                     `;
                     ul.appendChild(li);
@@ -66,6 +67,7 @@
             });
 
             initializeTimers();
+            initializeRemoveTaskButtons();
         }
 
         function initializeTimers() {
@@ -148,6 +150,27 @@
                     this.disabled = true;
                     document.querySelector(`.start-btn[data-timer="${timerId}"]`).disabled = false;
                     document.querySelector(`.stop-btn[data-timer="${timerId}"]`).disabled = false;
+                });
+            });
+        }
+
+        function initializeRemoveTaskButtons() {
+            document.querySelectorAll('.remove-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const routine = this.getAttribute('data-routine');
+                    const taskIndex = this.getAttribute('data-task-index');
+
+                    fetch(`/remove_task/${routine}/${taskIndex}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        routines = data;
+                        renderRoutines();
+                    });
                 });
             });
         }

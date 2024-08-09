@@ -34,5 +34,11 @@ def add_task(routine):
     routines[routine].append({"task": task_name, "time": time, "description": description})
     return jsonify(routines)
 
+@app.route('/remove_task/<routine>/<int:task_index>', methods=['POST'])
+def remove_task(routine, task_index):
+    if routine in routines and 0 <= task_index < len(routines[routine]):
+        routines[routine].pop(task_index)
+    return jsonify(routines)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
