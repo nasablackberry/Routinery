@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Routine Planner</title>
+    <title>Routine Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Custom Routine Planner</h1>
+        <button id="toggle-mode" class="toggle-mode">&#9728;</button> <!-- Sun icon for light mode -->
+        <h1>Routine Planner</h1>
         
         <form id="routine-form" class="routine-form">
             <input type="text" id="routine_name" placeholder="New Routine Name" required>
@@ -244,7 +245,25 @@
             }
         });
 
+        document.getElementById('toggle-mode').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        function applySavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('toggle-mode').textContent = '☀️'; // Sun icon for dark mode
+            }
+        }
+
+        applySavedTheme();
         renderRoutines();
     </script>
+    <footer>
+        Made with ❤️ by SHIVANK
+    </footer>
 </body>
 </html>

@@ -65,13 +65,6 @@ ul {
     padding: 0;
 }
 
-li {
-    background-color: #e7f7e7;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 4px;
-}
-
 .task-form input[type="text"] {
     width: 45%; /* Adjust width to fit both input boxes */
     padding: 10px;
@@ -147,4 +140,511 @@ footer {
     font-size: 0.9em;
     color: #333;
     margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fbeefc; /* Light pink background for light mode */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212; /* Dark background for dark mode */
+    color: #e0e0e0; /* Light text color for dark mode */
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* Light background for light mode */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e; /* Dark background for dark mode */
+}
+
+h1 {
+    color: #d81b60; /* Pink shade for the title */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+body.dark-mode h1 {
+    color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+/* Routine form styling */
+.routine-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.routine-form input {
+    padding: 10px;
+    border: 1px solid #d81b60;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+}
+
+body.dark-mode .routine-form input {
+    border-color: #f48fb1; /* Lighter pink border for dark mode */
+}
+
+.routine-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #d81b60; /* Pink background */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .routine-form button {
+    background-color: #f48fb1; /* Lighter pink background for dark mode */
+}
+
+.routine-form button:hover {
+    background-color: #c2185b; /* Darker pink on hover */
+}
+
+body.dark-mode .routine-form button:hover {
+    background-color: #e91e63; /* Even darker pink for dark mode */
+}
+
+/* Routine styling */
+.routine {
+    margin-bottom: 30px;
+}
+
+.routine h2 {
+    color: #c2185b; /* Darker pink for routine title */
+}
+
+body.dark-mode .routine h2 {
+    color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+/* Task form styling */
+.task-form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.task-form input {
+    padding: 10px;
+    border: 1px solid #c2185b;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+}
+
+body.dark-mode .task-form input {
+    border-color: #fa578d; /* Lighter pink border for dark mode */
+}
+
+.task-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #c2185b; /* Dark pink background */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .task-form button {
+    background-color: #f48fb1; /* Lighter pink background for dark mode */
+}
+
+.task-form button:hover {
+    background-color: #d81b60; /* Lighter pink on hover */
+}
+
+body.dark-mode .task-form button:hover {
+    background-color: #e91e63; /* Even darker pink for dark mode */
+}
+
+/* Task list styling */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark-mode li {
+    border-bottom: 1px solid #333; /* Darker border for dark mode */
+}
+
+strong {
+    color: #d81b60; /* Pink shade for task names */
+}
+
+body.dark-mode strong {
+    color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+/* Timer styling */
+.timer {
+    display: block;
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #d81b60; /* Pink for timer text */
+}
+
+body.dark-mode .timer {
+    color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+/* Timer control buttons */
+.timer-controls button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f06292; /* Light pink for buttons */
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .timer-controls button {
+    background-color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+.timer-controls button:hover {
+    background-color: #ec407a; /* Darker pink on hover */
+}
+
+body.dark-mode .timer-controls button:hover {
+    background-color: #e91e63; /* Even darker pink for dark mode */
+}
+
+.remove-routine-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ec407a; /* Darker pink for remove routine button */
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .remove-routine-btn {
+    background-color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+.remove-routine-btn:hover {
+    background-color: #d81b60; /* Lighter pink on hover */
+}
+
+body.dark-mode .remove-routine-btn:hover {
+    background-color: #e91e63; /* Even darker pink for dark mode */
+}
+
+/* Toggle button */
+.toggle-mode {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #d81b60; /* Pink background */
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .toggle-mode {
+    background-color: #f48fb1; /* Lighter pink for dark mode */
+}
+
+.toggle-mode:hover {
+    background-color: #c2185b; /* Darker pink on hover */
+}
+
+body.dark-mode .toggle-mode:hover {
+    background-color: #e91e63; /* Even darker pink for dark mode */
+}
+
+/* Common styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.timer {
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+/* Light mode */
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.container {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.timer {
+    color: #007bff;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode button {
+    background-color: #6200ee;
+    color: #ffffff;
+}
+
+body.dark-mode button:hover {
+    background-color: #3700b3;
+}
+
+body.dark-mode .timer {
+    color: #bb86fc;
+}
+
+/* Common styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.timer {
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+/* Light mode */
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.container {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.timer {
+    color: #007bff;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode button {
+    background-color: #6200ee;
+    color: #ffffff;
+}
+
+body.dark-mode button:hover {
+    background-color: #3700b3;
+}
+
+body.dark-mode .timer {
+    color: #bb86fc;
+}
+
+/* Toggle button styles */
+#toggle-mode {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ff0062;
+    color: #ffffff;
+    font-size: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#toggle-mode:hover {
+    background-color: #000000;
+}
+
+body.dark-mode #toggle-mode {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+body.dark-mode #toggle-mode:hover {
+    background-color: #ffffff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .routine-form,
+    .task-form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .routine-form input,
+    .task-form input,
+    .routine-form button,
+    .task-form button {
+        width: 90%;
+    }
+
+    .routine {
+        margin-bottom: 20px;
+    }
+
+    .remove-routine-btn {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .routine ul {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .routine li {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #b3b3b3;
+    }
+
+    .timer-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .timer-controls button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #toggle-mode {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 37.5px;
+        font-size: 0px;
+    }
 }
