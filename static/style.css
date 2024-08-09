@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+.routine-form, .task-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.routines {
+    margin-top: 20px;
+}
+
+.routine {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #e7f7e7;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.task-form input[type="text"] {
+    width: 45%; /* Adjust width to fit both input boxes */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px; /* Adds space between task name and time input */
+}
+
+.task-form button {
+    width: auto;
+}
+
+
+.timer {
+    font-weight: bold;
+    margin-left: 10px; /* Add space between the task time and the timer */
+    color: #d9534f;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 0 2px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.start-btn {
+    background-color: #4CAF50; /* Green */
+}
+
+.stop-btn {
+    background-color: #d9534f; /* Red */
+}
+
+.pause-btn {
+    background-color: #f0ad4e; /* Orange */
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.timer-controls {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.timer-controls button {
+    margin: 0 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9em;
+    color: #333;
+    margin-top: auto; /* Pushes the footer to the bottom */
+}

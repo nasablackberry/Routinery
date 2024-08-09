@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Routine Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Custom Routine Planner</h1>
+        
+        <form id="routine-form" class="routine-form">
+            <input type="text" id="routine_name" placeholder="New Routine Name" required>
+            <button type="submit">Add Routine</button>
+        </form>
+        
+        <div id="routines" class="routines"></div>
+    </div>
+
+    <script>
+        let routines = JSON.parse('{{ routines|safe }}');
+
+        function renderRoutines() {
+            const routinesDiv = document.getElementById('routines');
+            routinesDiv.innerHTML = '';
+
+            Object.keys(routines).forEach((routine, routineIndex) => {
+                const routineDiv = document.createElement('div');
+                routineDiv.className = 'routine';
+                
+                const routineTitle = document.createElement('h2');
+                routineTitle.textContent = routine;
+                routineDiv.appendChild(routineTitle);
+
+                const ul = document.createElement('ul');
+                routines[routine].forEach((task, taskIndex) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${task['task']}</strong> - ${task['time']}<br>
+                        <em>${task['description']}</em>
+                        <span class="timer" id="timer-${taskIndex}-${routineIndex}" data-time="${task['time']}" data-status="paused"></span>
+                        <div class="timer-controls">
+                            <button class="start-btn" data-timer="timer-${taskIndex}-${routineIndex}">Start</button>
+                            <button class="stop-btn" data-timer="timer-${taskIndex}-${routineIndex}" disabled>Stop</button>
+                            <button class="pause-btn" data-timer="timer-${taskIndex}-${routineIndex}" disabled>Pause</button>
+                        </div>
+                    `;
+                    ul.appendChild(li);
+                });
+                routineDiv.appendChild(ul);
+
+                const taskForm = document.createElement('form');
+                taskForm.className = 'task-form';
+                taskForm.action = `/add_task/${routine}`;
+                taskForm.method = 'POST';
+                taskForm.innerHTML = `
+                    <input type="text" name="task" placeholder="Task Name" required>
+                    <input type="text" name="time" placeholder="Time (e.g., 10 minutes)" required>
+                    <input type="text" name="description" placeholder="Description" required>
+                    <button type="submit">Add Task</button>
+                `;
+                routineDiv.appendChild(taskForm);
+
+                routinesDiv.appendChild(routineDiv);
+            });
+
+            initializeTimers();
+        }
+
+        function initializeTimers() {
+            const timers = {};
+            
+            function formatTime(seconds) {
+                let min = Math.floor(seconds / 60);
+                let sec = seconds % 60;
+                return `${min}:${sec < 10 ? '0' + sec : sec}`;
+            }
+
+            document.querySelectorAll('.timer').forEach(function(timerElement) {
+                const timerId = timerElement.id;
+                const timeStr = timerElement.getAttribute('data-time');
+                const timeParts = timeStr.split(' ');
+                const minutes = parseInt(timeParts[0]);
+                const totalSeconds = minutes * 60;
+
+                timers[timerId] = {
+                    totalSeconds: totalSeconds,
+                    remainingSeconds: totalSeconds,
+                    intervalId: null
+                };
+
+                timerElement.textContent = formatTime(totalSeconds);
+            });
+
+            document.querySelectorAll('.start-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const timerId = this.getAttribute('data-timer');
+                    const timer = timers[timerId];
+
+                    if (timer.intervalId === null) {
+                        timer.intervalId = setInterval(function() {
+                            if (timer.remainingSeconds > 0) {
+                                timer.remainingSeconds--;
+                                document.getElementById(timerId).textContent = formatTime(timer.remainingSeconds);
+                            } else {
+                                clearInterval(timer.intervalId);
+                                timer.intervalId = null;
+                                document.getElementById(timerId).textContent = "Time's up!";
+                            }
+                        }, 1000);
+                    }
+
+                    this.disabled = true;
+                    document.querySelector(`.stop-btn[data-timer="${timerId}"]`).disabled = false;
+                    document.querySelector(`.pause-btn[data-timer="${timerId}"]`).disabled = false;
+                });
+            });
+
+            document.querySelectorAll('.stop-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const timerId = this.getAttribute('data-timer');
+                    const timer = timers[timerId];
+
+                    if (timer.intervalId !== null) {
+                        clearInterval(timer.intervalId);
+                        timer.intervalId = null;
+                        timer.remainingSeconds = timer.totalSeconds;
+                        document.getElementById(timerId).textContent = formatTime(timer.totalSeconds);
+                    }
+
+                    this.disabled = true;
+                    document.querySelector(`.start-btn[data-timer="${timerId}"]`).disabled = false;
+                    document.querySelector(`.pause-btn[data-timer="${timerId}"]`).disabled = true;
+                });
+            });
+
+            document.querySelectorAll('.pause-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const timerId = this.getAttribute('data-timer');
+                    const timer = timers[timerId];
+
+                    if (timer.intervalId !== null) {
+                        clearInterval(timer.intervalId);
+                        timer.intervalId = null;
+                    }
+
+                    this.disabled = true;
+                    document.querySelector(`.start-btn[data-timer="${timerId}"]`).disabled = false;
+                    document.querySelector(`.stop-btn[data-timer="${timerId}"]`).disabled = false;
+                });
+            });
+        }
+
+        document.getElementById('routine-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const routineName = document.getElementById('routine_name').value;
+            
+            fetch('/add_routine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `routine_name=${routineName}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                routines = data;
+                renderRoutines();
+            });
+        });
+
+        document.addEventListener('submit', function(event) {
+            if (event.target.classList.contains('task-form')) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const taskName = formData.get('task');
+                const time = formData.get('time');
+                const description = formData.get('description');
+                const actionUrl = event.target.action;
+                
+                fetch(actionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `task=${taskName}&time=${time}&description=${description}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    routines = data;
+                    renderRoutines();
+                });
+            }
+        });
+
+        renderRoutines();
+    </script>
+</body>
+</html>
